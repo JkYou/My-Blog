@@ -135,14 +135,14 @@
             <version>1.0.18</version>
         </dependency>
         <dependency>
-            <groupId>com.taobao</groupId>
+            <groupId>com.taobao.api.request</groupId>
             <artifactId>tbk</artifactId>
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/taobao-sdk-java-auto_1508141130900-20171127.jar</systemPath>
         </dependency>
         <dependency>
-            <groupId>com.taobao</groupId>
+            <groupId>com.taobao.api</groupId>
             <artifactId>tbk</artifactId>
             <version>1.0</version>
             <scope>system</scope>
