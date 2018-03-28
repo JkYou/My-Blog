@@ -14,18 +14,18 @@ public interface ITbkService {
      * @return
      * @throws Exception
      */
-    public Map<String, Object> getProductList(TbkItemGetRequest req) throws Exception;
+     Map<String, Object> getProductList(TbkItemGetRequest req) throws Exception;
     /**
      * 好券清单API【导购】
      * 带优惠券产品
      * @return
      * @throws Exception
      */
-    public List<Map<String, Object>> getCouponProductList(TbkDgItemCouponGetRequest req) throws Exception;
+     List<Map<String, Object>> getCouponProductList(TbkDgItemCouponGetRequest req) throws Exception;
     /**
      * 淘宝客店铺查询
      * @return
      * @throws Exception
      */
-    public Map<String, Object> getShopping(TbkShopGetRequest req) throws Exception;
+     Map<String, Object> getShopping(TbkShopGetRequest req) throws Exception;
 }
