@@ -5,12 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import com.my.blog.website.service.ITbkService;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
-import com.taobao.api.request.TbkDgItemCouponGetRequest;
-import com.taobao.api.request.TbkItemGetRequest;
-import com.taobao.api.request.TbkShopGetRequest;
-import com.taobao.api.response.TbkDgItemCouponGetResponse;
-import com.taobao.api.response.TbkItemGetResponse;
-import com.taobao.api.response.TbkShopGetResponse;
+import com.taobao.api.request.*;
+import com.taobao.api.response.*;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -58,7 +54,7 @@ public class TbkServiceImpl implements ITbkService {
     public Map<String, Object> getShopping(TbkShopGetRequest req) throws Exception {
         resultMap = new HashMap<String,Object>();
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
-        req.setQ("女装");
+//        req.setQ("女装");
         req.setSort("commission_rate_des");
 		/*req.setIsTmall(false);
 		req.setStartCredit(1L);
@@ -77,4 +73,17 @@ public class TbkServiceImpl implements ITbkService {
         resultMap.put("data", rsp.getBody());
         return resultMap;
     }
+    @Override
+     public Map<String,Object> getTaoCode(String text,String url) throws Exception{
+        resultMap = new HashMap<String,Object>();
+        TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+        TbkTpwdCreateRequest req = new TbkTpwdCreateRequest();
+        req.setUserId("123");
+        req.setText(text);
+        req.setUrl(url);
+        TbkTpwdCreateResponse rsp = client.execute(req);
+        resultMap.put("data",rsp.getBody());
+        return resultMap;
+    }
+
 }

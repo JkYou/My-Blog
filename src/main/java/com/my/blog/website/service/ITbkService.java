@@ -28,4 +28,12 @@ public interface ITbkService {
      * @throws Exception
      */
      Map<String, Object> getShopping(TbkShopGetRequest req) throws Exception;
+    /**
+     * 淘口令生成借口
+     * @return
+     * @throws Exception
+     */
+
+     Map<String,Object> getTaoCode(String text,String url) throws Exception;
+
 }
