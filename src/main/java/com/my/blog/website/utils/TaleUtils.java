@@ -372,7 +372,7 @@ public class TaleUtils {
             if (index >= 0) {
                 ext = StringUtils.trimToNull(name.substring(index + 1));
             }
-            return prefix + "/" + UUID.UU32() + "." + (ext == null ? null : (ext));
+            return prefix + "/" + UUID.UU32() + "." + ((ext));
         }
     }
 
@@ -385,10 +385,7 @@ public class TaleUtils {
     public static boolean isImage(InputStream imageFile) {
         try {
             Image img = ImageIO.read(imageFile);
-            if (img == null || img.getWidth(null) <= 0 || img.getHeight(null) <= 0) {
-                return false;
-            }
-            return true;
+            return img != null && img.getWidth(null) > 0 && img.getHeight(null) > 0;
         } catch (Exception e) {
             return false;
         }

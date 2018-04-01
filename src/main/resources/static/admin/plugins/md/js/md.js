@@ -82,7 +82,7 @@ function markdown(textarea, toolbar, preview) {
             var stack = [], markStr = mark;
 
             for (var i = 0; i < diffs.length; i ++) {
-                var diff = diffs[i], op = diff[0], str = diff[1]
+                var diff = diffs[i], op = diff[0], str = diff[1];
                 sp = str.lastIndexOf('<'), ep = str.lastIndexOf('>');
 
                 if (op != 0) {

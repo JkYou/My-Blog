@@ -80,10 +80,7 @@ public class Tools {
     public static boolean isNumber(String str) {
         // Pattern pattern=Pattern.compile("[0-9]*");
         // return pattern.matcher(str).matches();
-        if (null != str && 0 != str.trim().length() && str.matches("\\d*")) {
-            return true;
-        }
+        return null != str && 0 != str.trim().length() && str.matches("\\d*");
 
-        return false;
     }
 }

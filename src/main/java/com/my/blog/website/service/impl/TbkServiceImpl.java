@@ -5,17 +5,13 @@ import com.google.gson.reflect.TypeToken;
 import com.my.blog.website.service.ITbkService;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
-import com.taobao.api.request.TbkDgItemCouponGetRequest;
-import com.taobao.api.request.TbkItemGetRequest;
-import com.taobao.api.request.TbkShopGetRequest;
-import com.taobao.api.response.TbkDgItemCouponGetResponse;
-import com.taobao.api.response.TbkItemGetResponse;
-import com.taobao.api.response.TbkShopGetResponse;
+import com.taobao.api.internal.util.StringUtils;
+import com.taobao.api.request.*;
+import com.taobao.api.response.*;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class TbkServiceImpl implements ITbkService {
@@ -77,4 +73,50 @@ public class TbkServiceImpl implements ITbkService {
         resultMap.put("data", rsp.getBody());
         return resultMap;
     }
+    /**
+     * 淘口令生成接口
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map<String,Object> taoCode(TbkTpwdCreateRequest req) throws Exception{
+        resultMap = new HashMap<String,Object>();
+        TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+//        req.setText("长度大于5个字符");
+//        req.setUrl("https://uland.taobao.com/");
+//        req.setLogo("https://uland.taobao.com/");
+        req.setExt("{}");
+        TbkTpwdCreateResponse rsp = client.execute(req);
+        resultMap.put("data", rsp.getBody());
+        return resultMap;
+    }
+    /**
+     * 淘抢购接口
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map<String,Object> taoQiangGou(TbkJuTqgGetRequest req) throws Exception{
+        resultMap = new HashMap<String,Object>();
+        TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+        req.setPageNo(1L);
+        req.setPageSize(20L);
+        req.setAdzoneId(adzoneId);
+        req.setFields("click_url,pic_url,reserve_price,zk_final_price,total_amount,sold_num,title,category_name,start_time,end_time");
+         Date day=new Date();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        req.setStartTime(StringUtils.parseDateTime(df.format(day)));
+        req.setEndTime(StringUtils.parseDateTime(df.format(getDateAfter(day,2))));
+        TbkJuTqgGetResponse  rsp = client.execute(req);
+        resultMap.put("data", rsp.getBody());
+        return resultMap;
+    }
+    //获取几天后的时间
+    public static Date getDateAfter(Date d, int day) {
+        Calendar now = Calendar.getInstance();
+        now.setTime(d);
+        now.set(Calendar.DATE, now.get(Calendar.DATE) + day);
+        return now.getTime();
+    }
+
 }
