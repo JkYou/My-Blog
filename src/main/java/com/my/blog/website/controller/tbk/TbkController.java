@@ -2,9 +2,7 @@ package com.my.blog.website.controller.tbk;
 
 import com.google.gson.Gson;
 import com.my.blog.website.service.ITbkService;
-import com.taobao.api.request.TbkDgItemCouponGetRequest;
-import com.taobao.api.request.TbkItemGetRequest;
-import com.taobao.api.request.TbkShopGetRequest;
+import com.taobao.api.request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,6 +45,28 @@ public class TbkController {
         Map<String,Object> map = new HashMap<String, Object>();
         try {
             map=iTbkService.getShopping(req);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return map;
+    }
+    @RequestMapping(value = "/getTaoCode")
+    @ResponseBody
+    public Map<String, Object> getTaoCode( TbkTpwdCreateRequest req){
+        Map<String,Object> map = new HashMap<String, Object>();
+        try {
+            map=iTbkService.taoCode(req);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return map;
+    }
+    @RequestMapping(value = "/getTaoQiang")
+    @ResponseBody
+    public Map<String, Object> getTaoQiang( TbkJuTqgGetRequest req){
+        Map<String,Object> map = new HashMap<String, Object>();
+        try {
+            map=iTbkService.taoQiangGou(req);
         } catch (Exception e) {
             // TODO: handle exception
         }

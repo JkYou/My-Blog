@@ -1,8 +1,6 @@
 package com.my.blog.website.service;
 
-import com.taobao.api.request.TbkDgItemCouponGetRequest;
-import com.taobao.api.request.TbkItemGetRequest;
-import com.taobao.api.request.TbkShopGetRequest;
+import com.taobao.api.request.*;
 
 import java.util.List;
 import java.util.Map;
@@ -29,11 +27,19 @@ public interface ITbkService {
      */
      Map<String, Object> getShopping(TbkShopGetRequest req) throws Exception;
     /**
-     * 淘口令生成借口
+     * 淘口令生成接口
+     * @return
+     * @throws Exception
+     */
+     Map<String,Object> taoCode(TbkTpwdCreateRequest req) throws Exception;
+    /**
+     * 淘抢购接口
      * @return
      * @throws Exception
      */
 
-     Map<String,Object> getTaoCode(String text,String url) throws Exception;
+     Map<String,Object> taoQiangGou(TbkJuTqgGetRequest req) throws Exception;
+
+
 
 }

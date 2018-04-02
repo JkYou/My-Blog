@@ -221,7 +221,6 @@ public class DateKit {
             SimpleDateFormat simpleFormat = new SimpleDateFormat(format);
             result = simpleFormat.format(today);
         } catch (Exception var4) {
-            ;
         }
 
         return result;
@@ -637,7 +636,6 @@ public class DateKit {
                     format.setLenient(false);
                     date = format.parse(input);
                 } catch (ParseException var5) {
-                    ;
                 }
 
                 if(date != null) {
