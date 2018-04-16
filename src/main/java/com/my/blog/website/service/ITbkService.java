@@ -38,7 +38,7 @@ public interface ITbkService {
      * @throws Exception
      */
 
-     Map<String,Object> taoQiangGou(TbkJuTqgGetRequest req) throws Exception;
+     Map<String,Object> taoQiangGou(String pageNo,String pageSize,String startTime,String endTime) throws Exception;
 
 
 

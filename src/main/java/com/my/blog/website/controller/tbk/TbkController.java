@@ -63,10 +63,10 @@ public class TbkController {
     }
     @RequestMapping(value = "/getTaoQiang")
     @ResponseBody
-    public Map<String, Object> getTaoQiang( TbkJuTqgGetRequest req){
+    public Map<String, Object> getTaoQiang( String pageNo,String pageSize,String startTime,String endTime){
         Map<String,Object> map = new HashMap<String, Object>();
         try {
-            map=iTbkService.taoQiangGou(req);
+            map=iTbkService.taoQiangGou(pageNo,pageSize,startTime,endTime);
         } catch (Exception e) {
             // TODO: handle exception
         }

@@ -30,8 +30,6 @@ public class TbkServiceImpl implements ITbkService {
         req.setFields("num_iid,title,pict_url,small_images,reserve_price,zk_final_price,user_type,provcity,item_url,seller_id,volume,nick");
 //		req.setCat(cat);
         //TODO: 添加查询条件
-        req.setQ("女装");
-        req.setPageNo(1L);
         TbkItemGetResponse rsp = client.execute(req);
         resultMap.put("data", rsp.getBody());
         return resultMap;
@@ -40,7 +38,6 @@ public class TbkServiceImpl implements ITbkService {
     public List<Map<String, Object>> getCouponProductList(TbkDgItemCouponGetRequest req) throws Exception {
         resultMap=new HashMap<String,Object>();
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
-        req.setPlatform(1L);
         req.setAdzoneId(adzoneId);
         TbkDgItemCouponGetResponse rsp = client.execute(req);
         resultMap.put("data", rsp.getBody());
@@ -96,17 +93,17 @@ public class TbkServiceImpl implements ITbkService {
      * @throws Exception
      */
     @Override
-    public Map<String,Object> taoQiangGou(TbkJuTqgGetRequest req) throws Exception{
+    public Map<String,Object> taoQiangGou(String pageNo,String pageSize,String startTime,String endTime) throws Exception{
         resultMap = new HashMap<String,Object>();
         TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
-        req.setPageNo(1L);
-        req.setPageSize(20L);
+        TbkJuTqgGetRequest req=new TbkJuTqgGetRequest();
+        req.setPageNo(Long.parseLong(pageNo));
+        req.setPageSize(Long.parseLong(pageSize));
         req.setAdzoneId(adzoneId);
         req.setFields("click_url,pic_url,reserve_price,zk_final_price,total_amount,sold_num,title,category_name,start_time,end_time");
-         Date day=new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        req.setStartTime(StringUtils.parseDateTime(df.format(day)));
-        req.setEndTime(StringUtils.parseDateTime(df.format(getDateAfter(day,2))));
+        req.setStartTime(df.parse(startTime));
+        req.setEndTime(df.parse(endTime));
         TbkJuTqgGetResponse  rsp = client.execute(req);
         resultMap.put("data", rsp.getBody());
         return resultMap;
