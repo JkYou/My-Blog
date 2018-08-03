@@ -31,7 +31,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 首页
@@ -81,7 +83,35 @@ public class IndexController extends BaseController {
         }
         return this.render("index");
     }
-
+   /**
+    * 首页数据
+    * p:页码
+    * limit:每页多少条
+   * */
+    @RequestMapping(value="/indexPage")
+    @ResponseBody
+    public Map<String,Object> indexPage(int p, int limit){
+        Map returnMap=new HashMap();
+        PageInfo<ContentVo> articles = contentService.getContents(p, limit);
+        returnMap.put("info",articles);
+        returnMap.put("code",'0');
+        return returnMap;
+    }
+    /**
+     * 首页数据
+     * p:页码
+     * limit:每页多少条
+     * */
+    @RequestMapping(value="/getArtById")
+    @ResponseBody
+    public Map<String,Object> getArtById(String cid){
+        Map returnMap=new HashMap();
+        ContentVo contents  = contentService.getContents(cid);
+        updateArticleHit(contents.getCid(), contents.getHits());
+        returnMap.put("info",contents);
+        returnMap.put("code",'0');
+        return returnMap;
+    }
     /**
      * 文章页
      *
@@ -124,6 +154,15 @@ public class IndexController extends BaseController {
         return this.render("post");
 
 
+    }
+    @RequestMapping(value="/getComments")
+    @ResponseBody
+    public Map<String,Object> getComments(int cid,int cp){
+        Map returnMap=new HashMap();
+        PageInfo<CommentBo> commentsPaginator = commentService.getComments(cid, cp, 6);
+        returnMap.put("info",commentsPaginator);
+        returnMap.put("code",'0');
+        return returnMap;
     }
 
     /**
@@ -264,7 +303,16 @@ public class IndexController extends BaseController {
 
         return this.render("page-category");
     }
-
+    //归档页
+    @RequestMapping(value="/getArchives")
+    @ResponseBody
+    public Map<String,Object> getArchives( ){
+        Map returnMap=new HashMap();
+        List<ArchiveBo> archives = siteService.getArchives();
+        returnMap.put("info",archives);
+        returnMap.put("code",'0');
+        return returnMap;
+    }
 
     /**
      * 归档页
@@ -277,7 +325,15 @@ public class IndexController extends BaseController {
         request.setAttribute("archives", archives);
         return this.render("archives");
     }
-
+    @RequestMapping(value="/getLinks")
+    @ResponseBody
+    public Map<String,Object> getLinks( ){
+        Map returnMap=new HashMap();
+        List<MetaVo> links = metaService.getMetas(Types.LINK.getType());
+        returnMap.put("info",links);
+        returnMap.put("code",'0');
+        return returnMap;
+    }
     /**
      * 友链页
      *
